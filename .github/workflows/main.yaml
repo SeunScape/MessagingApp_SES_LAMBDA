@@ -16,4 +16,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-west-2
       - run: sam build --use-container
-      - run: sam deploy --template-file /home/rix/Documents/serverless-messaging-app/packaged.yaml --stack-name SESLambdaCode --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset
+      - run: sam deploy --template-file packaged.yaml --stack-name SESLambdaCode --capabilities CAPABILITY_IAM --no-fail-on-empty-changeset
