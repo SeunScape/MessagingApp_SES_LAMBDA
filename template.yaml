@@ -1,0 +1,33 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Serverless patterns - Lambda to SES
+
+Resources:
+  SESSendFunction:
+    Type: AWS::Serverless::Function 
+    Properties:
+      CodeUri: src/
+      Handler: app.lambda_handler
+      Runtime: python3.11
+      Timeout: 3
+      MemorySize: 128
+
+  SESCrudPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    DependsOn: SESSendFunction
+    Properties:
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action:
+              - ses:SendEmail
+              - ses:SendRawEmail
+            Resource:
+              - arn:aws:ses:us-west-2:561511046884:identity/alabioluwaseun40@gmail.com
+              - arn:aws:ses:us-west-2:561511046884:identity/blessingalabi03@gmail.com
+
+Outputs:
+  SESSendFunction:
+    Description: SESSendFunction function name
+    Value: !Ref SESSendFunction
